@@ -1,12 +1,32 @@
-# nexpect
+                                           _   
+                                          | |  
+     _ __    ___ __  __ _ __    ___   ___ | |_ 
+    | '_ \  / _ \\ \/ /| '_ \  / _ \ / __|| __|
+    | | | ||  __/ >  < | |_) ||  __/| (__ | |_ 
+    |_| |_| \___|/_/\_\| .__/  \___| \___| \__|
+                       | |                     
+                       |_|                     
 
-nExpect is a node.js module for spawning child applications and seamlessly controlling them using javascript callbacks. nExpect can be used for automating terminal applications such as ssh, ftp, passwd, telnet, etc. nExpect is based on the ideas of the Expect library by Don
+
+nexpect is a node.js module for spawning child applications and seamlessly controlling them using javascript callbacks. nexpect can be used for automating terminal applications such as ssh, ftp, passwd, telnet, etc. nExpect is based on the ideas of the Expect library by Don
 Libes and the pexpect library by Noah Spurrier. 
 
 
 It can be used to a automate setup
 scripts for duplicating software package installations on different servers. It
 can be used for automated software testing.
+
+## installation
+
+### installing npm (node package manager)
+<pre>
+  curl http://npmjs.org/install.sh | sh
+</pre>
+
+### installing nexpect
+<pre>
+  npm install nexpect
+</pre>
 
 # usage
 
