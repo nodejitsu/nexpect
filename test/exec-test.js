@@ -5,7 +5,7 @@ var sys = require('sys'),
     vows = require('vows'),
     exec = require('child_process').exec,
     spawn = require('child_process').spawn,
-    nspawn = require('./nspawn').nspawn;
+    nspawn = require('../lib/nexpect').nspawn;
 
 vows.describe('noc/terminal-exec').addBatch({
   "When executing commands on the terminal": {
