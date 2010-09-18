@@ -1,3 +1,5 @@
+/* not implemented 
+
 var sys = require('sys'),
     events = require('events'),
     assert = require('assert'),
@@ -10,7 +12,7 @@ var sys = require('sys'),
 vows.describe('noc/terminal-exec').addBatch({
   "When executing commands on the terminal": {
     "and you run ls with DIRNAME": {
-      topic: nspawn.spawn('ls -a'),
+      topic: nspawn.spawn('ls test -a'),
       "you should see the current path": function(result){
         eyes.inspect(result);
         assert.equal( result, 'exec-test.js');
@@ -18,3 +20,5 @@ vows.describe('noc/terminal-exec').addBatch({
     }
   }
 }).export(module);
+
+*/

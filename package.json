@@ -1,0 +1,16 @@
+{
+  "name": "nexpect",
+  "description": "spawns and interacts with child processes using spawn / expect commands",
+  "version": "0.1.0",
+  "author": "Elijah Insua <tmpvar@gmail.com>",
+  "repository": {
+      "type": "git",
+      "url": "http://github.com/nodejitsu/nexpect.git" 
+  },
+  "keywords": ["nexpect", "spawn", "child process", "terminal"],
+  "dependencies": {
+  },
+  "main": "./lib/nexpect",
+  "scripts": { "test": "vows" },
+  "engines": { "node": ">= 0.2.0" }
+}

@@ -1,21 +1,10 @@
-<pre>
-                                       _   
-                                      | |  
- _ __    ___ __  __ _ __    ___   ___ | |_ 
-| '_ \  / _ \\ \/ /| '_ \  / _ \ / __|| __|
-| | | ||  __/ >  < | |_) ||  __/| (__ | |_ 
-|_| |_| \___|/_/\_\| .__/  \___| \___| \__|
-                   | |                     
-                   |_|                     
-</pre>
+#nexpect
 
-nexpect is a node.js module for spawning child applications and seamlessly controlling them using javascript callbacks. nexpect can be used for automating terminal applications such as ssh, ftp, passwd, telnet, etc. nExpect is based on the ideas of the Expect library by Don
-Libes and the pexpect library by Noah Spurrier. 
+nexpect is a node.js module for spawning child applications (such as ssh) and seamlessly controlling them using javascript callbacks. nexpect is based on the ideas of the [expect][0] library by Don Libes and the [pexpect][1] library by Noah Spurrier. 
 
+## why
 
-It can be used to a automate setup
-scripts for duplicating software package installations on different servers. It
-can be used for automated software testing.
+node.js has good built in control for spawning child processes. nexpect builds on these core methods and allows developers to easily pipe data to child processes and assert the expected response. nexpect also chains, so you can compose complex terminal interactions.
 
 ## installation
 
@@ -29,7 +18,7 @@ can be used for automated software testing.
   npm install nexpect
 </pre>
 
-# usage
+## usage
 
       console.log('echo hello');
       nexpect.spawn("echo hello")
@@ -65,12 +54,9 @@ can be used for automated software testing.
 
 # authors
 
+[Elijah Insua][2] and [Marak Squires][3]
 
-
-tmpvar and Marak
-
-
-[]
-
-http://search.cpan.org/~rgiersig/Expect-1.21/Expect.pod
-http://pexpect.sourceforge.net/pexpect.html
+[0]: http://search.cpan.org/~rgiersig/Expect-1.21/Expect.pod "expect"
+[1]: http://pexpect.sourceforge.net/pexpect.html "pexpect"
+[2]: http://github.com/tmpvar "Elijah Insua"
+[3]: http://github.com/marak "Marak Squires"

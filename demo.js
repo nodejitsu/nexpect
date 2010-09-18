@@ -2,7 +2,6 @@
 
 var nexpect = require('./lib/nexpect').nspawn;
 
-console.log('echo hello');
 nexpect.spawn("echo hello")
        .expect("hello")
        .run(function(err) {
@@ -11,7 +10,6 @@ nexpect.spawn("echo hello")
           }
        });
 
-console.log('ls -al /tmp/undefined');
 nexpect.spawn("ls -al /tmp/undefined")
        .expect("No such file or directory")
        .run(function(err) {
