@@ -20,7 +20,6 @@ node.js has good built in control for spawning child processes. nexpect builds o
 
 ## usage
 
-      console.log('echo hello');
       nexpect.spawn("echo hello")
              .expect("hello")
              .run(function(err) {
@@ -29,7 +28,6 @@ node.js has good built in control for spawning child processes. nexpect builds o
                 }
              });
 
-      console.log('ls -al /tmp/undefined');
       nexpect.spawn("ls -al /tmp/undefined")
              .expect("No such file or directory")
              .run(function(err) {
