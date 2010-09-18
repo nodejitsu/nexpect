@@ -20,6 +20,8 @@ node.js has good built in control for spawning child processes. nexpect builds o
 
 ## usage
 
+      var nexpect = require('./lib/nexpect').nspawn;
+      
       nexpect.spawn("echo hello")
              .expect("hello")
              .run(function(err) {
