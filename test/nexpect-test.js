@@ -90,6 +90,10 @@ vows.describe('nexpect').addBatch({
         nexpect.spawn(path.join(__dirname, 'fixtures', 'multiple-cases'), { ignoreCase: true })
                .wait('this has many cases')
                .expect('this also has many cases')
+      ),
+      "when options.cwd is set": assertSpawn(
+        nexpect.spawn(path.join(__dirname, 'fixtures', 'show-cwd'), { cwd: path.join(__dirname, 'fixtures') })
+               .wait(path.join(__dirname, 'fixtures'))
       )
     }
   }

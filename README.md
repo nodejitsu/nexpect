@@ -27,9 +27,12 @@ The core method, `nexpect.spawn(command, [params], [options])`, takes three para
 * command: The command that you wish to spawn
 * params: The argv that you want to pass to the child process
 * options: An object literal which may contain
-  - verbose: Writes the stdout for the child process to `process.stdout` of the current process.
-  - stripColors: Strips any ANSI colors from the output for `.expect()` and `.wait()` statements.
+  - cwd: Current working directory of the child process.
   - ignoreCase: Ignores the case of any output from the child process.
+  - stripColors: Strips any ANSI colors from the output for `.expect()` and `.wait()` statements.
+  - verbose: Writes the stdout for the child process to `process.stdout` of the current process.
+  
+  
   
 Lets take a look at some sample usage:
 
