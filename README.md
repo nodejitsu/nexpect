@@ -20,6 +20,19 @@ node.js has good built in control for spawning child processes. `nexpect` builds
 
 ## Usage
 
+### Basic usage
+
+The core method, `nexpect.spawn(command, [params], [options])`, takes three parameters: 
+
+* command: The command that you wish to spawn
+* params: The argv that you want to pass to the child process
+* options: An object literal which may contain
+  - verbose: Writes the stdout for the child process to `process.stdout` of the current process.
+  - stripColors: Strips any ANSI colors from the output for `.expect()` and `.wait()` statements.
+  - ignoreCase: Ignores the case of any output from the child process.
+  
+Lets take a look at some sample usage:
+
 ``` js
   var nexpect = require('nexpect');
 
