@@ -23,6 +23,11 @@ function assertSpawn (expect) {
 
 vows.describe('nexpect').addBatch({
   "When using the nexpect module": {
+    "it should have the correct methods defined": function () {
+      assert.isFunction(nexpect.spawn);
+      assert.isObject(nexpect.nspawn);
+      assert.isFunction(nexpect.nspawn.spawn);
+    },
     "spawning": {
       "`echo hello`": assertSpawn(
         nexpect.spawn("echo", ["hello"])
