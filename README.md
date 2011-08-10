@@ -67,11 +67,24 @@ Lets take a look at some sample usage:
          });
 ```
 
-# Authors
-[Elijah Insua][2] [Marak Squires][3], and [Charlie Robbins][4].
+If you are looking for more examples take a look at the [examples][2], and [tests][3].
 
-[0]: http://search.cpan.org/~rgiersig/Expect-1.21/Expect.pod "expect"
-[1]: http://pexpect.sourceforge.net/pexpect.html "pexpect"
-[2]: http://github.com/tmpvar "Elijah Insua"
-[3]: http://github.com/marak "Marak Squires"
-[4]: http://github.com/indexzero "Charlie Robbins"
+## Tests
+
+All tests are written with [vows][4]:
+
+``` bash
+  $ npm test
+```
+
+## Authors
+[Elijah Insua][5] [Marak Squires][6], and [Charlie Robbins][7].
+
+[0]: http://search.cpan.org/~rgiersig/Expect-1.21/Expect.pod
+[1]: http://pexpect.sourceforge.net/pexpect.html
+[2]: https://github.com/nodejitsu/nexpect/tree/master/examples
+[3]: https://github.com/nodejitsu/nexpect/tree/master/test/nexpect-test.js
+[4]: http://vowsjs.org
+[5]: http://github.com/tmpvar
+[6]: http://github.com/marak
+[7]: http://github.com/indexzero
