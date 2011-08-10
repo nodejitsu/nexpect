@@ -30,7 +30,6 @@ function assertError (expect) {
     },
     "should respond with no error": function (_, err) {
       assert.isObject(err);
-      assert.isNotNull(err.message.match(/^Command not found/));
     }
   }
 }
@@ -47,8 +46,8 @@ vows.describe('nexpect').addBatch({
         nexpect.spawn("echo", ["hello"])
                .expect("hello")
       ),
-      "`ls -al /tmp/undefined`": assertSpawn(
-        nexpect.spawn("ls -la /tmp/undefined")
+      "`ls -l /tmp/undefined`": assertSpawn(
+        nexpect.spawn("ls -la /tmp/undefined", { stream: 'stderr' })
                .expect("No such file or directory")
       ),
       "a command that does not exist": assertError(
@@ -62,15 +61,26 @@ vows.describe('nexpect').addBatch({
               .expect("testing")
               .sendline("process.exit()")
       ),
-      "and using the wait() method": assertSpawn(
-        nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
-               .wait('first')
-               .sendline('first-prompt')
-               .expect('first-prompt')
-               .wait('second')
-               .sendline('second-prompt')
-               .expect('second-prompt')
-      ),
+      "and using the wait() method": {
+        "when assertions are met": assertSpawn(
+          nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+                 .wait('first')
+                 .sendline('first-prompt')
+                 .expect('first-prompt')
+                 .wait('second')
+                 .sendline('second-prompt')
+                 .expect('second-prompt')
+        ),
+        "when the last assertion is never met": assertError(
+          nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+                 .wait('first')
+                 .sendline('first-prompt')
+                 .expect('first-prompt')
+                 .wait('second')
+                 .sendline('second-prompt')
+                 .wait('this-never-shows-up')
+        )
+      },
       "when options.stripColors is set": assertSpawn(
         nexpect.spawn(path.join(__dirname, 'fixtures', 'log-colors'), { stripColors: true })
                .wait('second has colors')
