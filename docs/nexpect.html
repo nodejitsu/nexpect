@@ -1,0 +1,262 @@
+<!DOCTYPE html>  <html> <head>   <title>nexpect.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               nexpect.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> * nexpect.js: Top-level include for the `nexpect` module.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (C) 2011, Elijah Insua, Marak Squires, Charlie Robbins.</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span>
+ 
+<span class="kd">var</span> <span class="nx">spawn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">spawn</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">chain</span> <span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>function expect (str)</h3>
+
+<h4>@str {string} Output to assert on the target stream</h4>
+
+<p>Adds a one-time assertion to the <code>context.queue</code> for the current chain.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">expect</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_expect</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_expect</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="p">};</span>
+      
+      <span class="nx">_expect</span><span class="p">.</span><span class="nx">shift</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">_expect</span><span class="p">);</span>
+      
+      <span class="k">return</span> <span class="nx">chain</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h3>function wait (str)</h3>
+
+<h4>@str {string} Output to assert on the target stream</h4>
+
+<p>Adds an assertion to the <code>context.queue</code> for the current chain,
+that will wait until it returns true.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">wait</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_wait</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_wait</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="p">};</span>
+      
+      <span class="nx">_wait</span><span class="p">.</span><span class="nx">shift</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">_wait</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">chain</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h3>function sendline (line)</h3>
+
+<h4>@line {string} Output to write to the child process.</h4>
+
+<p>Adds a write line to <code>context.process.stdin</code> to the <code>context.queue</code>
+for the current chain.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">sendline</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_sendline</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_sendline</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">context</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">line</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">verbose</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">line</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">};</span>
+      
+      <span class="nx">_sendline</span><span class="p">.</span><span class="nx">shift</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">_sendline</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">chain</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h3>function run (callback)</h3>
+
+<h4>@callback {function} Continuation to respond to when complete</h4>
+
+<p>Runs the <code>context</code> against the specified <code>context.command</code> and 
+<code>context.params</code>. </p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">run</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">errState</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="nx">responded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> 
+          <span class="nx">stdout</span> <span class="o">=</span> <span class="p">[];</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p><strong>onError</strong></p>
+
+<p>Helper function to respond to the callback with a 
+specified error. Kills the child process if necessary.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="kd">function</span> <span class="nx">onError</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">kill</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">errState</span> <span class="o">||</span> <span class="nx">responded</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nx">errState</span> <span class="o">=</span> <span class="nx">err</span><span class="p">;</span>
+        <span class="nx">responded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">kill</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">try</span> <span class="p">{</span> <span class="nx">context</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">kill</span><span class="p">()</span> <span class="p">}</span>
+          <span class="k">catch</span> <span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p><strong>validateFnType</strong></p>
+
+<p>Helper function to validate the <code>currentFn</code> in the 
+<code>context.queue</code> for the target chain.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="kd">function</span> <span class="nx">validateFnType</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">currentFn</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>If the <code>currentFn</code> is not a function, short-circuit with an error.</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Cannot process non-function on nexpect stack.&#39;</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">([</span><span class="s1">&#39;_expect&#39;</span><span class="p">,</span> <span class="s1">&#39;_sendline&#39;</span><span class="p">,</span> <span class="s1">&#39;_wait&#39;</span><span class="p">].</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>If the <code>currentFn</code> is a function, but not those set by <code>.sendline()</code> or 
+<code>.expect()</code> then short-circuit with an error.</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected context function name: &#39;</span> <span class="o">+</span> <span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span> 
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p><strong>evalContext</strong></p>
+
+<p>Core evaluation logic that evaluates the next function in 
+<code>context.queue</code> against the specified <code>data</code> where the last
+function run had <code>name</code>.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="kd">function</span> <span class="nx">evalContext</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">currentFn</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">currentFn</span> <span class="o">||</span> <span class="p">(</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_expect&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_expect&#39;</span><span class="p">))</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>If there is nothing left on the context or we are trying to 
+evaluate two consecutive <code>_expect</code> functions, return.</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">.</span><span class="nx">shift</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">validateFnType</span><span class="p">(</span><span class="nx">currentFn</span><span class="p">))</span> <span class="p">{</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_expect&#39;</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>If this is an <code>_expect</code> function, then evaluate it and attempt
+to evaluate the next function (in case it is a <code>_sendline</code> function).</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="k">return</span> <span class="nx">currentFn</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">===</span> <span class="kc">true</span>
+            <span class="o">?</span> <span class="nx">evalContext</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="s1">&#39;_expect&#39;</span><span class="p">)</span>
+            <span class="o">:</span> <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">data</span> <span class="o">+</span> <span class="s1">&#39; was not expected..&#39;</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_wait&#39;</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>If this is a <code>_wait</code> function, then evaluate it and if it returns true,
+then evaluate the function (in case it is a <code>_sendline</code> function).</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+            <span class="nx">evalContext</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="s1">&#39;_expect&#39;</span><span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_sendline&#39;</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>If the <code>currentFn</code> is a <code>_sendline</code> function then evaluate
+it and return.</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="nx">currentFn</span><span class="p">();</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p><strong>onLine</strong></p>
+
+<p>Preprocesses the <code>data</code> from <code>context.process</code> on the 
+specified <code>context.stream</code> and then evaluates the processed lines: </p>
+
+<ol>
+<li>Stripping ANSI colors (if necessary)</li>
+<li>Removing case sensitivity (if necessary)</li>
+<li>Splitting <code>data</code> into multiple lines.</li>
+</ol>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="kd">function</span> <span class="nx">onLine</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">stripColors</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\u001b\[\d{0,2}m/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">ignoreCase</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">line</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">});</span>
+        <span class="nx">stdout</span> <span class="o">=</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">lines</span><span class="p">);</span>
+        
+        <span class="k">while</span> <span class="p">(</span><span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">evalContext</span><span class="p">(</span><span class="nx">lines</span><span class="p">.</span><span class="nx">shift</span><span class="p">(),</span> <span class="kc">null</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p><strong>flushQueue</strong></p>
+
+<p>Helper function which flushes any remaining functions from 
+<code>context.queue</code> and responds to the <code>callback</code> accordingly.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="kd">function</span> <span class="nx">flushQueue</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">currentFn</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">(),</span>
+            <span class="nx">lastLine</span> <span class="o">=</span> <span class="nx">stdout</span><span class="p">[</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lastLine</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;No data from child with non-empty queue.&#39;</span><span class="p">))</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span> 
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Non-empty queue on spawn exit.&#39;</span><span class="p">));</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">validateFnType</span><span class="p">(</span><span class="nx">currentFn</span><span class="p">))</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_sendline&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Cannot call sendline after the process has exited&#39;</span><span class="p">));</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_wait&#39;</span> <span class="o">||</span> <span class="nx">currentFn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;_expect&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">currentFn</span><span class="p">(</span><span class="nx">lastLine</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">lastLine</span> <span class="o">+</span> <span class="s1">&#39; was not expected..&#39;</span><span class="p">));</span>
+            <span class="k">return</span> <span class="kc">false</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p><strong>onData</strong></p>
+
+<p>Helper function for writing any data from a stream 
+to <code>process.stdout</code>.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="kd">function</span> <span class="nx">onData</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <p>Spawn the child process and begin processing the target
+stream for this chain.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nx">context</span><span class="p">.</span><span class="nx">process</span> <span class="o">=</span> <span class="nx">spawn</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">command</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">params</span><span class="p">);</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">process</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">stream</span><span class="p">].</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">onLine</span><span class="p">);</span>
+      
+      <span class="k">if</span> <span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">verbose</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">context</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">onData</span><span class="p">);</span>
+        <span class="nx">context</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">onData</span><span class="p">);</span>
+      <span class="p">}</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-19">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>               <p>When the process exits, check the output <code>code</code> and <code>signal</code>,
+flush <code>context.queue</code> (if necessary) and respond to the callback
+appropriately.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nx">context</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">signal</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">code</span> <span class="o">===</span> <span class="mi">127</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-20">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>               <p>If the response code is <code>127</code> then <code>context.command</code> was not found.</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="k">return</span> <span class="nx">onError</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Command not found: &#39;</span> <span class="o">+</span> <span class="nx">context</span><span class="p">.</span><span class="nx">command</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">flushQueue</span><span class="p">())</span> <span class="p">{</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">);</span>
+      <span class="p">});</span>
+            
+      <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">process</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-21">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>               <h3>function nspawn (command, [params], [options])</h3>
+
+<h4>@command {string|Array} Command or complete set of params to spawn</h4>
+
+<h4>@params {Array} <strong>Optional</strong> Argv to pass to the child process</h4>
+
+<h4>@options {Object} <strong>Optional</strong> Additional options for spawning the child process.</h4>
+
+<p>Top-level entry point for <code>nexpect</code> that liberally parses the arguments 
+and then returns a new chain with the specified <code>command</code>, <code>params</code>, and <code>options</code>.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">nspawn</span> <span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="p">}</span> 
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">options</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="nx">params</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">command</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">params</span>  <span class="o">=</span> <span class="nx">command</span><span class="p">;</span>
+    <span class="nx">command</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">command</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">command</span> <span class="o">=</span> <span class="nx">command</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
+    <span class="nx">params</span>  <span class="o">=</span> <span class="nx">params</span> <span class="o">||</span> <span class="nx">command</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">command</span> <span class="o">=</span> <span class="nx">command</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="p">}</span>
+  
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+  <span class="nx">context</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">command</span><span class="o">:</span> <span class="nx">command</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="nx">params</span><span class="p">,</span>
+    <span class="nx">queue</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="nx">stream</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">stream</span> <span class="o">||</span> <span class="s1">&#39;stdout&#39;</span><span class="p">,</span>
+    <span class="nx">verbose</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span><span class="p">,</span>
+    <span class="nx">stripColors</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">stripColors</span><span class="p">,</span>
+    <span class="nx">ignoreCase</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreCase</span>
+  <span class="p">};</span>
+  
+  <span class="k">return</span> <span class="nx">chain</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-22">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>               <p>Export the core <code>nspawn</code> function as well as <code>nexpect.nspawn</code> for 
+backwards compatibility.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">spawn</span>  <span class="o">=</span> <span class="nx">nspawn</span><span class="p">;</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">nspawn</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">spawn</span><span class="o">:</span> <span class="nx">nspawn</span>
+<span class="p">};</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
