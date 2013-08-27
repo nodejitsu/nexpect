@@ -41,7 +41,7 @@ Lets take a look at some sample usage:
 
   nexpect.spawn("echo", ["hello"])
          .expect("hello")
-         .run(function (err) {
+         .run(function (err, stdout, exitcode) {
            if (!err) {
              console.log("hello was echoed");
            }
