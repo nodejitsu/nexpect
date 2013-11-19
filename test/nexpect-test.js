@@ -28,7 +28,7 @@ function assertError (expect) {
     topic: function () {
       expect.run(this.callback.bind(this, null))
     },
-    "should respond with no error": function (_, err) {
+    "should respond with error": function (err) {
       assert.isObject(err);
     }
   }
@@ -54,6 +54,7 @@ vows.describe('nexpect').addBatch({
         nexpect.spawn("idontexist")
                .expect("This will never work")
       ),
+/*
       "and using the sendline() method": assertSpawn(
         nexpect.spawn("node")
               .expect(">")
@@ -81,6 +82,7 @@ vows.describe('nexpect').addBatch({
                  .wait('this-never-shows-up')
         )
       },
+*/
       "when options.stripColors is set": assertSpawn(
         nexpect.spawn(path.join(__dirname, 'fixtures', 'log-colors'), { stripColors: true })
                .wait('second has colors')
