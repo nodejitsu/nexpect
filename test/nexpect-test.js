@@ -61,7 +61,6 @@ vows.describe('nexpect').addBatch({
               .expect("testing")
               .sendline("process.exit()")
       ),
-/*
       "and using the wait() method": {
         "when assertions are met": assertSpawn(
           nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
@@ -82,7 +81,6 @@ vows.describe('nexpect').addBatch({
                  .wait('this-never-shows-up')
         )
       },
-*/
       "when options.stripColors is set": assertSpawn(
         nexpect.spawn(path.join(__dirname, 'fixtures', 'log-colors'), { stripColors: true })
                .wait('second has colors')
