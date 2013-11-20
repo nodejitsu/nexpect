@@ -54,14 +54,14 @@ vows.describe('nexpect').addBatch({
         nexpect.spawn("idontexist")
                .expect("This will never work")
       ),
-/*
       "and using the sendline() method": assertSpawn(
-        nexpect.spawn("node")
+        nexpect.spawn("node --interactive")
               .expect(">")
               .sendline("console.log('testing')")
               .expect("testing")
               .sendline("process.exit()")
       ),
+/*
       "and using the wait() method": {
         "when assertions are met": assertSpawn(
           nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
