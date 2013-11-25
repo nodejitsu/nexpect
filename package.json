@@ -19,15 +19,14 @@
   ],
   "devDependencies": {
     "colors": "0.x.x",
-    "prompt": "0.1.x >=0.1.5",
-    "vows": "0.5.x"
+    "prompt": "~0.2.11",
+    "vows": "~0.5.x"
   },
   "main": "./lib/nexpect",
   "scripts": {
     "test": "vows --spec"
   },
   "engines": {
-    "node": ">= 0.2.0"
+    "node": ">=0.8.0"
   }
 }
-

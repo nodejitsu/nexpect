@@ -4,7 +4,7 @@
  * (C) 2011, Elijah Insua, Marak Squires, Charlie Robbins.
  *
  */
- 
+
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
@@ -28,7 +28,7 @@ function assertError (expect) {
     topic: function () {
       expect.run(this.callback.bind(this, null))
     },
-    "should respond with no error": function (_, err) {
+    "should respond with error": function (err) {
       assert.isObject(err);
     }
   }
@@ -55,7 +55,7 @@ vows.describe('nexpect').addBatch({
                .expect("This will never work")
       ),
       "and using the sendline() method": assertSpawn(
-        nexpect.spawn("node")
+        nexpect.spawn("node --interactive")
               .expect(">")
               .sendline("console.log('testing')")
               .expect("testing")
@@ -94,6 +94,10 @@ vows.describe('nexpect').addBatch({
       "when options.cwd is set": assertSpawn(
         nexpect.spawn(path.join(__dirname, 'fixtures', 'show-cwd'), { cwd: path.join(__dirname, 'fixtures') })
                .wait(path.join(__dirname, 'fixtures'))
+      ),
+      "when options.env is set": assertSpawn(
+        nexpect.spawn(path.join(__dirname, 'fixtures', 'show-env'), { env: { foo: 'bar', PATH: process.env.PATH }})
+          .expect('foo=bar')
       )
     }
   }
