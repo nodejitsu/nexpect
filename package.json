@@ -1,7 +1,7 @@
 {
   "name": "nexpect",
   "description": "Spawns and interacts with child processes using spawn / expect commands",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
   "maintainers": [
     "indexzero <charlie@nodejitsu.com>",
