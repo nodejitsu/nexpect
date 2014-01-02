@@ -7,7 +7,7 @@
 
 var nexpect = require('../lib/nexpect');
 
-nexpect.spawn("ls -la /tmp/undefined")
+nexpect.spawn("ls -la /tmp/undefined", { stream: 'stderr' })
        .expect("No such file or directory")
        .run(function (err) {
           if (!err) {
