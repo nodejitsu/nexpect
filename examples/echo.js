@@ -4,7 +4,7 @@
  * (C) 2011, Elijah Insua, Marak Squires, Charlie Robbins.
  *
  */
- 
+
 var nexpect = require('../lib/nexpect');
 
 nexpect.spawn("echo", ["hello"])

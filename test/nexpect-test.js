@@ -14,24 +14,24 @@ var assert = require('assert'),
 function assertSpawn (expect) {
   return {
     topic: function () {
-      expect.run(this.callback)
+      expect.run(this.callback);
     },
     "should respond with no error": function (err, stdout) {
       assert.isTrue(!err);
       assert.isArray(stdout);
     }
-  }
+  };
 }
 
 function assertError (expect) {
   return {
     topic: function () {
-      expect.run(this.callback.bind(this, null))
+      expect.run(this.callback.bind(this, null));
     },
     "should respond with error": function (err) {
       assert.isObject(err);
     }
-  }
+  };
 }
 
 vows.describe('nexpect').addBatch({

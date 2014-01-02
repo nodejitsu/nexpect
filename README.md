@@ -3,7 +3,7 @@
 `nexpect` is a node.js module for spawning child applications (such as ssh) and
 seamlessly controlling them using javascript callbacks. nexpect is based on the
 ideas of the [expect][0] library by Don Libes and the [pexpect][1] library by
-Noah Spurrier. 
+Noah Spurrier.
 
 ## Motivation
 
@@ -42,7 +42,7 @@ The module exposes a single function, `.spawn`.
     process.
 
 
-Top-level entry point for `nexpect` that liberally parses the arguments 
+Top-level entry point for `nexpect` that liberally parses the arguments
 and then returns a new chain with the specified `command`, `params`, and `options`.
 
 ### function expect (str)
@@ -50,7 +50,7 @@ and then returns a new chain with the specified `command`, `params`, and `option
 * str {string} Output to assert on the target stream
 
 Adds a one-time assertion to the `context.queue` for the current chain.
- 
+
 
 ### function wait (str)
 
