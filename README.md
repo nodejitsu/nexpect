@@ -75,8 +75,8 @@ for the current chain.
   * output {Array} Array of lines of output examined
   * exit {Number|String} Numeric exit code, or String name of signal
 
-Runs the `context` against the specified `context.command` and 
-`context.params`. 
+Runs the `context` against the specified `context.command` and
+`context.params`.
 
 
 ## Example
@@ -94,7 +94,7 @@ Lets take a look at some sample usage:
            }
          });
 
-  nexpect.spawn("ls -la /tmp/undefined")
+  nexpect.spawn("ls -la /tmp/undefined", { stream: 'stderr' })
          .expect("No such file or directory")
          .run(function (err) {
            if (!err) {
@@ -102,7 +102,7 @@ Lets take a look at some sample usage:
            }
          });
 
-  nexpect.spawn("node")
+  nexpect.spawn("node --interactive")
          .expect(">")
          .sendline("console.log('testing')")
          .expect("testing")

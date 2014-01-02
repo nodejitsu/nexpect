@@ -7,7 +7,7 @@
 
 var nexpect = require('../lib/nexpect');
 
-nexpect.spawn("node")
+nexpect.spawn("node --interactive")
        .expect(">")
        .sendline("console.log('testing')")
        .expect("testing")
