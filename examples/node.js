@@ -15,8 +15,8 @@ nexpect.spawn("node --interactive")
        .run(function (err) {
          if (!err) {
            console.log("node process started, console logged, process exited");
-         } 
+         }
          else {
-           console.log(err)
+           console.log(err);
          }
        });

@@ -4,7 +4,7 @@
  * (C) 2011, Elijah Insua, Marak Squires, Charlie Robbins.
  *
  */
- 
+
 var path = require('path'),
     nexpect = require('../lib/nexpect');
 
@@ -15,4 +15,4 @@ nexpect.spawn(path.join(__dirname, '..', 'test', 'fixtures', 'multiple-cases'), 
          if (!err) {
            console.log('multiple cases were waited and expected');
          }
-       })
+       });
