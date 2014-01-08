@@ -49,17 +49,15 @@ and then returns a new chain with the specified `command`, `params`, and `option
 
 * str {string} Output to assert on the target stream
 
-Adds a one-time assertion to the `context.queue` for the current chain.
-
+Expect that the next line of output contains `str` as a sub-string, fails if it
+does not.
 
 ### function wait (str)
 
 * str {string} Output to assert on the target stream
 
-Adds an assertion to the `context.queue` for the current chain,
-that will wait until it returns true.
-
-XXX(sam) Its not at all clear from the tests how wait() and expect() are different.
+Wait for a line of output that contains `str` as a sub-string, discarding lines
+that do not match, fails if `str` is not found.
 
 ### function sendline (line)
 
