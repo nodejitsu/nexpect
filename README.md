@@ -45,19 +45,27 @@ The module exposes a single function, `.spawn`.
 Top-level entry point for `nexpect` that liberally parses the arguments
 and then returns a new chain with the specified `command`, `params`, and `options`.
 
-### function expect (str)
+### function expect (expectation)
 
-* str {string} Output to assert on the target stream
+* expectation {string|RegExp} Output to assert on the target stream
 
-Expect that the next line of output contains `str` as a sub-string, fails if it
-does not.
+Expect that the next line of output matches the expectation.
+Throw an error if it does not.
 
-### function wait (str)
+The expectation can be a string (the line should contain the expected value as
+a substring) or a RegExp (the line should match the expression).
 
-* str {string} Output to assert on the target stream
+### function wait (expectation)
 
-Wait for a line of output that contains `str` as a sub-string, discarding lines
-that do not match, fails if `str` is not found.
+* expectation {string|RegExp} Output to assert on the target stream
+
+Wait for a line of output that matches the expectation, discarding lines
+that do not match.
+
+Throw an error if no such line was found.
+
+The expectation can be a string (the line should contain the expected value as
+a substring) or a RegExp (the line should match the expression).
 
 ### function sendline (line)
 

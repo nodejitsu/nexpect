@@ -61,6 +61,12 @@ vows.describe('nexpect').addBatch({
               .expect("testing")
               .sendline("process.exit()")
       ),
+      "and using the expect() method": {
+        "when RegExp expectation is met": assertSpawn(
+          nexpect.spawn("echo", ["hello"])
+                 .expect(/^hello$/)
+        ),
+      },
       "and using the wait() method": {
         "when assertions are met": assertSpawn(
           nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
