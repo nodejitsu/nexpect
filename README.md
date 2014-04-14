@@ -74,6 +74,14 @@ a substring) or a RegExp (the line should match the expression).
 Adds a write line to `context.process.stdin` to the `context.queue`
 for the current chain.
 
+### function sendEof ()
+
+Close child's stdin stream, let the child know there are no more data coming.
+
+This is useful for testing apps that are using inquirer,
+as `inquirer.prompt()` calls `stdin.resume()` at some point,
+which causes the app to block on input when the input stream is a pipe.
+
 ### function run (callback)
 
 * callback {function} Called when child process closes, with arguments
