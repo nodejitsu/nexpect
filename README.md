@@ -129,6 +129,25 @@ Lets take a look at some sample usage:
              console.log(err)
            }
          });
+
+  emitter = nexpect.spawn("node --interactive")
+         .run(function (err) {
+           if (!err) {
+             console.log("node process started, console logged, process exited");
+           }
+           else {
+             console.log(err)
+           }
+         });
+         emitter.expect(">");
+         emitter.on('wait',function(data){
+           if(data === '>'){
+             emitter.sendline("console.log('testing')")
+             .expect("testing")
+           } else if(data === 'testing') {
+             emitter.sendline("process.exit()")
+           }
+         });
 ```
 
 If you are looking for more examples take a look at the [examples][2], and [tests][3].

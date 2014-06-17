@@ -61,6 +61,23 @@ vows.describe('nexpect').addBatch({
               .expect("testing")
               .sendline("process.exit()")
       ),
+      "and using the event driven method": {
+          "should respond with no error": function () {
+            child = nexpect.spawn('node', ['--interactive']);
+            child.run(function(err,stdout,exitcode){
+                assert.isTrue(!err);
+                assert.isArray(stdout);
+            });
+            child.on('wait',function(data){
+                if(data === '>'){
+                    child.sendline('console.log("testing")').wait('testing');
+                } else if (data === 'testing'){
+                    child.sendline('process.exit()');
+                }
+            });
+            child.wait('>');
+        }
+      },
       "and using the expect() method": {
         "when RegExp expectation is met": assertSpawn(
           nexpect.spawn("echo", ["hello"])
