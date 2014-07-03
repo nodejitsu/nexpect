@@ -20,7 +20,7 @@ compose complex terminal interactions.
 
 ## Usage
 
-### require('nspawn')
+### require('nexpect')
 
 The module exposes a single function, `.spawn`.
 
