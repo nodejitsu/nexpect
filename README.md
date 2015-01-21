@@ -35,7 +35,7 @@ The module exposes a single function, `.spawn`.
   - env: Environment variables for the child process.
   - ignoreCase: Ignores the case of any output from the child process.
   - stripColors: Strips any ANSI colors from the output for `.expect()` and `.wait()` statements.
-  - stream: Expectations can be written against stdout, or stderr, but not both
+  - stream: Expectations can be written against 'stdout', 'stderr', or 'all', which runs expectations against both stdout and stderr
     (defaults to 'stdout')
   - verbose: Writes the stdout for the child process to `process.stdout` of the current process,
     and any data sent with sendline to the `process.stdout` of the current
