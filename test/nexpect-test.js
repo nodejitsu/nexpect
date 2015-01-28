@@ -85,7 +85,40 @@ vows.describe('nexpect').addBatch({
                  .wait('second')
                  .sendline('second-prompt')
                  .wait('this-never-shows-up')
-        )
+        ),
+        "when a callback is provided and output is matched": {
+          topic: function() {
+            var expect = nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+              .wait('first', this.callback)
+              .sendline('first-prompt')
+              .expect('first-prompt')
+              .wait('second')
+              .sendline('second-prompt')
+              .expect('second-prompt').run(function() {});
+          },
+          'should call callback': function(matchData, b) {
+            assert.ok(matchData.indexOf('first') > 0, "Found 'first' in output")
+          }
+        },
+        "when a callback is provided and output is not matched": {
+          topic: function() {
+            var args = {hasRunCallback: false},
+                waitCallback = function() {
+                  args.hasRunCallback = true;
+                };
+
+            var expect = nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+              .wait('first')
+              .sendline('first-prompt')
+              .expect('first-prompt')
+              .wait('second')
+              .sendline('second-prompt')
+              .wait('this-never-shows-up', waitCallback).run(this.callback.bind(this, args));
+          },
+          'should not call callback': function(args, a) {
+            assert.equal(args.hasRunCallback, false, 'Should not have run callback');
+          }
+        }
       },
       "when options.stripColors is set": assertSpawn(
         nexpect.spawn(path.join(__dirname, 'fixtures', 'log-colors'), { stripColors: true })

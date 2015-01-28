@@ -55,9 +55,10 @@ Throw an error if it does not.
 The expectation can be a string (the line should contain the expected value as
 a substring) or a RegExp (the line should match the expression).
 
-### function wait (expectation)
+### function wait (expectation, callback)
 
 * expectation {string|RegExp} Output to assert on the target stream
+* callback {Function} **Optional** Callback to be called when output matches stream
 
 Wait for a line of output that matches the expectation, discarding lines
 that do not match.
@@ -66,6 +67,8 @@ Throw an error if no such line was found.
 
 The expectation can be a string (the line should contain the expected value as
 a substring) or a RegExp (the line should match the expression).
+
+The callback will be called for every line that matches the expectation.
 
 ### function sendline (line)
 
