@@ -66,6 +66,10 @@ vows.describe('nexpect').addBatch({
           nexpect.spawn("echo", ["hello"])
                  .expect(/^hello$/)
         ),
+        "when a function expectation is met": assertSpawn(
+          nexpect.spawn("echo", ["hello"])
+                 .expect(function (output) {return output === "hello";})
+        ),
       },
       "and using the wait() method": {
         "when assertions are met": assertSpawn(
@@ -74,6 +78,15 @@ vows.describe('nexpect').addBatch({
                  .sendline('first-prompt')
                  .expect('first-prompt')
                  .wait('second')
+                 .sendline('second-prompt')
+                 .expect('second-prompt')
+        ),
+        "when asserting with RegExps or functions": assertSpawn(
+          nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+                 .wait(/first/)
+                 .sendline('first-prompt')
+                 .expect('first-prompt')
+                 .wait(function (output) {return /second/.test(output);})
                  .sendline('second-prompt')
                  .expect('second-prompt')
         ),
