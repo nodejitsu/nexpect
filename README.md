@@ -47,7 +47,7 @@ and then returns a new chain with the specified `command`, `params`, and `option
 
 ### function expect (expectation)
 
-* expectation {string|RegExp} Output to assert on the target stream
+* expectation {string|RegExp|function} Output to assert on the target stream
 
 Expect that the next line of output matches the expectation.
 Throw an error if it does not.
@@ -57,7 +57,7 @@ a substring) or a RegExp (the line should match the expression).
 
 ### function wait (expectation, callback)
 
-* expectation {string|RegExp} Output to assert on the target stream
+* expectation {string|RegExp|function} Output to assert on the target stream
 * callback {Function} **Optional** Callback to be called when output matches stream
 
 Wait for a line of output that matches the expectation, discarding lines
