@@ -81,6 +81,15 @@ vows.describe('nexpect').addBatch({
                  .sendline('second-prompt')
                  .expect('second-prompt')
         ),
+        "when asserting with RegExps or functions": assertSpawn(
+          nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+                 .wait(/first/)
+                 .sendline('first-prompt')
+                 .expect('first-prompt')
+                 .wait(function (output) {return /second/.test(output);})
+                 .sendline('second-prompt')
+                 .expect('second-prompt')
+        ),
         "when the last assertion is never met": assertError(
           nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
                  .wait('first')
