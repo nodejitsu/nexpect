@@ -66,6 +66,10 @@ vows.describe('nexpect').addBatch({
           nexpect.spawn("echo", ["hello"])
                  .expect(/^hello$/)
         ),
+        "when a function expectation is met": assertSpawn(
+          nexpect.spawn("echo", ["hello"])
+                 .expect(function (output) {return output === "hello";})
+        ),
       },
       "and using the wait() method": {
         "when assertions are met": assertSpawn(
