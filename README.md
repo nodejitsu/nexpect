@@ -48,6 +48,7 @@ and then returns a new chain with the specified `command`, `params`, and `option
 ### function expect (expectation)
 
 * expectation {string|RegExp} Output to assert on the target stream
+* callback {Function} **Optional** Callback to be called when output matches stream
 
 Expect that the next line of output matches the expectation.
 Throw an error if it does not.
