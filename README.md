@@ -72,7 +72,7 @@ The callback will be called for every line that matches the expectation.
 
 ### function sendline (line)
 
-* line {string} Output to write to the child process.
+* line {string | function} A string, or a function which produces output to write to the child process.
 
 Adds a write line to `context.process.stdin` to the `context.queue`
 for the current chain.
