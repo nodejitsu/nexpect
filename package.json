@@ -3,6 +3,7 @@
   "description": "Spawns and interacts with child processes using spawn / expect commands",
   "version": "0.5.0",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
+  "license": "MIT",
   "maintainers": [
     "indexzero <charlie@nodejitsu.com>",
     "AvianFlu <avianflu@nodejitsu.com>"
@@ -17,16 +18,19 @@
     "child process",
     "terminal"
   ],
+  "dependencies": {
+    "cross-spawn": "^6.0.5"
+  },
   "devDependencies": {
-    "colors": "0.x.x",
-    "prompt": "~0.2.11",
-    "vows": "~0.5.x"
+    "colors": "^1.3.3",
+    "prompt": "^1.0.0",
+    "vows": "^0.8.2"
   },
   "main": "./lib/nexpect",
   "scripts": {
     "test": "vows --spec"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=6"
   }
 }
