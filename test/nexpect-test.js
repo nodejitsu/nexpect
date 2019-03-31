@@ -8,7 +8,6 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    spawn = require('child_process').spawn,
     nexpect = require('../lib/nexpect');
 
 function assertSpawn (expect) {
@@ -88,7 +87,7 @@ vows.describe('nexpect').addBatch({
         ),
         "when a callback is provided and output is matched": {
           topic: function() {
-            var expect = nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+            nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
               .wait('first', this.callback)
               .sendline('first-prompt')
               .expect('first-prompt')
@@ -107,7 +106,7 @@ vows.describe('nexpect').addBatch({
                   args.hasRunCallback = true;
                 };
 
-            var expect = nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
+            nexpect.spawn(path.join(__dirname, 'fixtures', 'prompt-and-respond'))
               .wait('first')
               .sendline('first-prompt')
               .expect('first-prompt')
