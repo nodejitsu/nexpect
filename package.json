@@ -1,12 +1,11 @@
 {
   "name": "nexpect",
   "description": "Spawns and interacts with child processes using spawn / expect commands",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
   "license": "MIT",
   "maintainers": [
-    "indexzero <charlie@nodejitsu.com>",
-    "AvianFlu <avianflu@nodejitsu.com>"
+    "indexzero <charlie@nodejitsu.com>"
   ],
   "repository": {
     "type": "git",
