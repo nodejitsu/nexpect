@@ -95,6 +95,8 @@ which causes the app to block on input when the input stream is a pipe.
 Runs the `context` against the specified `context.command` and
 `context.params`.
 
+In case of error, output received on the designated stream will be available
+as an array of lines as `err.stdout`.
 
 ## Example
 
